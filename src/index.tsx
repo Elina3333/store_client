@@ -1,19 +1,26 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import ReactDOM from 'react-dom';
+import reportWebVitals from "./reportWebVitals";
+import App from "./App";
+import BrowserRouter from "./BrowserRouter";
+import {Provider} from "react-redux";
+import {store} from "./store/configureStore";
+import {fetchProductsAsync} from "./components/catalog/catalogSlice";
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import {Routes} from "react-router-dom";
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+store.dispatch(fetchProductsAsync());
+
+ReactDOM.render(
+    <React.StrictMode>
+        <BrowserRouter>
+                <Provider store={store}>
+                    <App />
+                </Provider>
+        </BrowserRouter>
+    </React.StrictMode>,
+    document.getElementById('root')
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
